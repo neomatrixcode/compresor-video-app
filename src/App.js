@@ -31,9 +31,19 @@ function App () {
           style={styles.imageStyle}
           poster={item.thumbnail}
         />
+        <Text style={{color:"green"}}>{item.external_path}</Text>
+        <Text style={{color:"green"}}>{item.texto}</Text>
+
+        <Text style={{color:"green"}}>{item.file.size.width}</Text>
+        <Text style={{color:"green"}}>{item.file.size.height}</Text>
+        <Text style={{color:"green"}}>{item.file.duration}</Text>
+        <Text style={{color:"green"}}>{item.file.orientation}</Text>
+        <Text style={{color:"green"}}>{item.file.bitrate}</Text>
+        <Text style={{color:"green"}}>{item.file.frameRate}</Text>
       </TouchableOpacity>
     )
   };
+
 
   return (
     <>

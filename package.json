@@ -14,7 +14,7 @@
     "@react-native-firebase/app": "^9.0.0",
     "@react-native-firebase/storage": "^7.4.14",
     "react": "16.13.1",
-    "react-native": "0.63.3",
+    "react-native": "0.63.5",
     "react-native-image-picker": "^2.3.4",
     "react-native-video": "^5.1.0-alpha8",
     "react-native-video-processing": "^2.0.0",

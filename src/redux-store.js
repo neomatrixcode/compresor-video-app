@@ -86,10 +86,12 @@ function compressVideo(path) {
 function uploadVideo(file, data) {
   return async () => {
     console.log(`begin uploading ${data.uuid}`)
-    const reference = storage().ref(`/videos/${data.uuid}.mp4`);
-    await reference.putFile(file.path);
-    const external_path = await reference.getDownloadURL();
-    await mockApi.update(data.uuid, {...data, external_path, thumbnail: file.thumbnail });
+    const origin = await ProcessingManager.getVideoInfo(file.path);
+    //const reference = storage().ref(`/videos/${data.uuid}.mp4`);
+    //await reference.putFile(file.path);
+    //const external_path = await reference.getDownloadURL();
+    const external_path = file.path//"http://archivo.algo"
+    await mockApi.update(data.uuid, {...data, external_path, thumbnail: file.thumbnail, texto: "hola", file:origin});
   };
 }
 
