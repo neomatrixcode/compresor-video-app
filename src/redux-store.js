@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { ProcessingManager } from 'react-native-video-processing';
 import storage from '@react-native-firebase/storage';
+import RNFetchBlob from 'react-native-fetch-blob'
 import * as mockApi from './mock-api';
 
 const ADD_QUEUE_QUEUE = 'ADD_QUEUE_QUEUE';
@@ -91,7 +92,11 @@ function uploadVideo(file, data) {
     //await reference.putFile(file.path);
     //const external_path = await reference.getDownloadURL();
     const external_path = file.path//"http://archivo.algo"
-    await mockApi.update(data.uuid, {...data, external_path, thumbnail: file.thumbnail, texto: "hola", file:origin});
+    RNFetchBlob.fs.stat(external_path)
+    .then((stats) => {
+      mockApi.update(data.uuid, {...data, external_path, thumbnail: file.thumbnail, texto: "hola", file:origin, stats:stats })
+  })
+    .catch((err) => {})
   };
 }
 

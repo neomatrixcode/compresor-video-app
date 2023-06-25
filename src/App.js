@@ -6,6 +6,8 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import Video from 'react-native-video';
+import moment from "moment";
+
 
 import UploadButton from './UploadButton';
 import { getVideosApi, uploadNext } from './redux-store';
@@ -31,15 +33,40 @@ function App () {
           style={styles.imageStyle}
           poster={item.thumbnail}
         />
-        <Text style={{color:"green"}}>{item.external_path}</Text>
-        <Text style={{color:"green"}}>{item.texto}</Text>
 
-        <Text style={{color:"green"}}>{item.file.size.width}</Text>
-        <Text style={{color:"green"}}>{item.file.size.height}</Text>
-        <Text style={{color:"green"}}>{item.file.duration}</Text>
-        <Text style={{color:"green"}}>{item.file.orientation}</Text>
-        <Text style={{color:"green"}}>{item.file.bitrate}</Text>
-        <Text style={{color:"green"}}>{item.file.frameRate}</Text>
+        {item.file? (
+        <>
+        <Text style={{color:"green"}}>width: {item.file.size.width} pixels</Text>
+        <Text style={{color:"green"}}>height: {item.file.size.height} pixels</Text>
+        <Text style={{color:"green"}}>duration: {moment.utc(item.file.duration*1000).format('HH:mm:ss')}</Text>
+        </>
+     ) : (
+     <>
+        <Text style={{color:"green"}}> </Text>
+        <Text style={{color:"green"}}> </Text>
+        <Text style={{color:"green"}}> </Text>
+        <Text style={{color:"green"}}> </Text>
+        <Text style={{color:"green"}}> </Text>
+        <Text style={{color:"green"}}> </Text>
+        </>
+     )}
+
+     {item.stats? (
+        <>
+        <Text style={{color:"green"}}>filename: {item.stats.filename}</Text>
+        <Text style={{color:"green"}}>size: {((item.stats.size/1024)/1024).toFixed(2)} MB</Text>
+        <Text style={{color:"green"}}>lastModified: {(Date(item.stats.lastModified * 1000).toString())}</Text>
+        </>
+     ) : (
+     <>
+        <Text style={{color:"green"}}> </Text>
+        <Text style={{color:"green"}}> </Text>
+        <Text style={{color:"green"}}> </Text>
+        <Text style={{color:"green"}}> </Text>
+        <Text style={{color:"green"}}> </Text>
+        </>
+     )}
+
       </TouchableOpacity>
     )
   };
