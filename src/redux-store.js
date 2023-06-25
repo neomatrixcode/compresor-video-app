@@ -74,10 +74,10 @@ function compressVideo(path) {
     console.log(`begin compressing ${path}`);
     const origin = await ProcessingManager.getVideoInfo(path);
     const result = await ProcessingManager.compress(path, {
-      width: origin.size && origin.size.width / 3,
-      height: origin.size && origin.size.height / 3,
+      //width: origin.size && origin.size.width / 3,
+      //height: origin.size && origin.size.height / 3,
       bitrateMultiplier: 7,
-      minimumBitrate: 300000
+      minimumBitrate: 3000000
     });
     const thumbnail =  await ProcessingManager.getPreviewForSecond(result.source);
     return { path: result.source, thumbnail };
@@ -85,13 +85,21 @@ function compressVideo(path) {
 }
 
 function uploadVideo(file, data) {
+  external_path = file.path
+
+  if (Platform.OS === 'ios') {
+    let arr = file.path.split('/')
+    const dirs = RNFetchBlob.fs.dirs
+    external_path = `${dirs.DocumentDir}/${arr[arr.length - 1]}`
+  }
+
   return async () => {
     console.log(`begin uploading ${data.uuid}`)
     const origin = await ProcessingManager.getVideoInfo(file.path);
     //const reference = storage().ref(`/videos/${data.uuid}.mp4`);
     //await reference.putFile(file.path);
     //const external_path = await reference.getDownloadURL();
-    const external_path = file.path//"http://archivo.algo"
+
     RNFetchBlob.fs.stat(external_path)
     .then((stats) => {
       mockApi.update(data.uuid, {...data, external_path, thumbnail: file.thumbnail, texto: "hola", file:origin, stats:stats })
