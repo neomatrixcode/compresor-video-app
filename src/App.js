@@ -54,11 +54,13 @@ function App () {
      {item.stats? (
         <>
         <Text style={{color:"green"}}>filename: {item.stats.filename}</Text>
+        <Text style={{color:"green"}}>filename: {item.stats.path}</Text>
         <Text style={{color:"green"}}>size: {((item.stats.size/1024)/1024).toFixed(2)} MB</Text>
         <Text style={{color:"green"}}>lastModified: {(Date(item.stats.lastModified * 1000).toString())}</Text>
         </>
      ) : (
      <>
+        <Text style={{color:"green"}}> </Text>
         <Text style={{color:"green"}}> </Text>
         <Text style={{color:"green"}}> </Text>
         <Text style={{color:"green"}}> </Text>
